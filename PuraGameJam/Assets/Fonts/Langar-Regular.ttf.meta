@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b1cbf801d2eaff74fb33b803867947a7
+guid: 8efa0c3d07029924dae309a8a25238ce
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Righteous
+  fontName: Langar
   fontNames:
-  - Righteous
+  - Langar
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
