@@ -25,6 +25,21 @@ public class MenuController : MonoBehaviour
         StartCoroutine(openMenu());
     }
 
+    private void Start()
+    {
+        if (PlayerPrefs.GetInt("Music") == 1 && GameObject.FindGameObjectWithTag("MenuMusic") == null)
+            PlayMusic(SoundManager.Instance.menuMusic);
+
+        updateSoundImages();
+    }
+
+    public void StartGame()
+    {
+        menuPanel.SetActive(false);
+        gameplayPanel.SetActive(true);
+        GameManager.Instance.StartGame();
+    }
+
     public void OpenPanel(GameObject panel)
     {
         panel.SetActive(true);
@@ -62,7 +77,7 @@ public class MenuController : MonoBehaviour
     {
         logo.DOPunchScale(new Vector3(0.04f, 0.04f, 0.04f), 1f, 1, 1f).SetEase(Ease.Linear).SetLoops(-1);
         logo.DOAnchorPosX(0f, 0.4f).SetEase(Ease.OutBack);
-        buttonsPanel.DOAnchorPosY(100f, 0.4f).SetEase(Ease.OutBack);
+        buttonsPanel.DOAnchorPosY(160f, 0.4f).SetEase(Ease.OutBack);
     }
 
     public void buttonUp(Button button)

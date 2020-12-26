@@ -6,6 +6,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip buttonClip;
     public AudioClip gameOverClip;
     public AudioClip collectClip;
+    public AudioClip menuMusic;
 
     public static SoundManager Instance { get; private set; }
 
@@ -49,6 +50,7 @@ public class SoundManager : MonoBehaviour
 
             audioSource.loop = true;
             audioSource.clip = audioClip;
+            audioSource.volume = 0.3f;
             audioSource.Play();
         }
     }

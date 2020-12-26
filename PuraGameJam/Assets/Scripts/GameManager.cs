@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public bool isGameOver, isGameStarted;
+    public int birdCollectedCount = 0, fishCollectedCount = 0;
     public GameObject levelPrefab;
 
     public static GameManager Instance;
@@ -31,6 +32,14 @@ public class GameManager : MonoBehaviour
         if (!isGameOver && isGameStarted)
         {
             isGameOver = true;
+
+            int birdRequired = LevelManager.Instance.levels[PlayerPrefs.GetInt("CurrentLevel")].birdCollectableCount;
+            int fishRequired = LevelManager.Instance.levels[PlayerPrefs.GetInt("CurrentLevel")].fishCollectableCount;
+
+            if (birdCollectedCount ==  birdRequired && fishCollectedCount == fishRequired)
+            {
+                //To be implemented star system
+            }
 
             MenuController.Instance.gameplayPanel.SetActive(false);
             MenuController.Instance.OpenPanel(MenuController.Instance.gameOverPanel);
