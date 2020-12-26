@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    public enum CharacterType { BirdCharacter, FishCharacter };
+    public enum CharacterType { Bird, Fish };
 
     public CharacterType characterType;
     public int characterID;

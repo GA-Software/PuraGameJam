@@ -71,23 +71,9 @@ public class GameManager : MonoBehaviour
             int birdRequired = LevelManager.Instance.levels[PlayerPrefs.GetInt("CurrentLevel")].birdCollectableCount;
             int fishRequired = LevelManager.Instance.levels[PlayerPrefs.GetInt("CurrentLevel")].fishCollectableCount;
 
-            float percent = (float)(birdCollectedCount + fishCollectedCount) / (float)(birdRequired + fishRequired);
-
-            if (percent < 0.25f)
+            if (birdCollectedCount ==  birdRequired && fishCollectedCount == fishRequired)
             {
                 //To be implemented star system
-            }
-            else if (percent < 0.6f)
-            {
-
-            }
-            else if (percent < 0.9f)
-            {
-
-            }
-            else
-            {
-
             }
 
             MenuController.Instance.gameplayPanel.SetActive(false);

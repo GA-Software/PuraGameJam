@@ -12,8 +12,6 @@ public class CameraController : MonoBehaviour
         {
             characters.Add(InputManager.Instance.characterControllers[i].transform);
         }
-
-        FollowCharacters();
     }
 
     private void Update()
