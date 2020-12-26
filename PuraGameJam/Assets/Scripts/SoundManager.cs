@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip gameOverClip;
     public AudioClip collectClip;
     public AudioClip menuMusic;
+    public AudioClip victoryClip;
 
     private bool musicCreated = false;
     private GameObject musicObject;
@@ -48,6 +49,7 @@ public class SoundManager : MonoBehaviour
         if (PlayerPrefs.GetInt("Music") == 1)
         {
             yield return new WaitForSeconds(waitTime);
+
             if (musicCreated)
             {
                 musicObject.GetComponent<AudioSource>().UnPause();
@@ -88,8 +90,8 @@ public class SoundManager : MonoBehaviour
         PlayerPrefs.SetInt("Music", PlayerPrefs.GetInt("Music") == 0 ? 1 : 0);
 
         if (PlayerPrefs.GetInt("Music") == 0)
-            GameObject.FindGameObjectWithTag("MenuMusic").GetComponent<AudioSource>().volume = 0;
+            musicObject.GetComponent<AudioSource>().Pause();
         else
-            GameObject.FindGameObjectWithTag("MenuMusic").GetComponent<AudioSource>().volume = 0.5f;
+            musicObject.GetComponent<AudioSource>().UnPause();
     }
 }
