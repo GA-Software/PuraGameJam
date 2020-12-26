@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public bool isGameOver, isGameStarted, levelFinished;
+    public bool isGameOver, isGameStarted, levelFinished, birdFinished, fishFinished;
     public int birdCollectedCount = 0, fishCollectedCount = 0;
-    public GameObject levelPrefab;
+    public List<GameObject> levels;
 
     public static GameManager Instance;
 
@@ -21,11 +21,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         Application.targetFrameRate = 60;
+        Instantiate(levels[PlayerPrefs.GetInt("CurrentLevel") - 1]);
     }
 
     public IEnumerator StartGame()
     {
-        Instantiate(levelPrefab);
         yield return new WaitForSeconds(0.8f);
         isGameOver = false;
         isGameStarted = true;
@@ -45,7 +45,23 @@ public class GameManager : MonoBehaviour
         if (!levelFinished)
         {
             Time.timeScale = 1f;
-            MenuController.Instance.closePanel(MenuController.Instance.gamePausedPanel);
+            MenuController.Instance.ClosePanel(MenuController.Instance.gamePausedPanel);
+        }
+    }
+
+    public void FinishLevel()
+    {
+        if (birdFinished && fishFinished)
+        {
+            LevelManager.Instance.FinishLevel();
+            levelFinished = true;
+
+            foreach (CharacterController character in InputManager.Instance.characterControllers)
+            {
+                character.canMove = false;
+            }
+
+            MenuController.Instance.OpenPanel(MenuController.Instance.victoryPanel); 
         }
     }
 

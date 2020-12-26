@@ -4,7 +4,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     public enum ControlKeys { Left, Right, Up, Down, Action, Skill1, Skill2 };
-    [SerializeField] List<CharacterController> characterControllers;
+    public List<CharacterController> characterControllers = new List<CharacterController>();
 
     public static InputManager Instance;
 

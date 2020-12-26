@@ -18,18 +18,16 @@ public class LevelManager : MonoBehaviour
         else if (Instance != this)
             Destroy(gameObject);
 
-        Application.targetFrameRate = 30;
-
         for (int i = 1; i <= levelCount; i++)
         {
             if (!PlayerPrefs.HasKey("LevelStar" + i))
                 PlayerPrefs.SetInt("LevelStar" + i, 0);
         }
 
-        levelControl();
+        LevelControl();
     }
 
-    public void levelControl()
+    public void LevelControl()
     {
         if (!PlayerPrefs.HasKey("CurrentLevel"))
             PlayerPrefs.SetInt("CurrentLevel", 1);
@@ -42,9 +40,9 @@ public class LevelManager : MonoBehaviour
             PlayerPrefs.SetInt("CurrentMaxLevel", levelCount);
     }
 
-    public void startLevel(int index)
+    public void StartLevel(int index)
     {
-        levelControl();
+        LevelControl();
         DG.Tweening.DOTween.KillAll();
 
         if (index >= 0 && index <= PlayerPrefs.GetInt("CurrentMaxLevel"))
@@ -55,36 +53,29 @@ public class LevelManager : MonoBehaviour
         else if (index == PlayerPrefs.GetInt("CurrentMaxLevel"))
         {
             //To be implemented
+            Debug.Log("You Completed the game.");
             SceneManager.LoadScene(0);
         }
     }
 
-    public void resetProgress()
+    public void ResetProgress()
     {
         PlayerPrefs.DeleteAll();
-        levelControl();
+        LevelControl();
         DG.Tweening.DOTween.KillAll();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void setMaxLevel(int index)
+    public void LoadNextLevel()
     {
-        DG.Tweening.DOTween.KillAll();
-        PlayerPrefs.SetInt("CurrentMaxLevel", index);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartLevel(PlayerPrefs.GetInt("CurrentLevel"));
     }
 
-    public void nextLevel()
-    {
-        DG.Tweening.DOTween.KillAll();
-        int currentLevel = PlayerPrefs.GetInt("CurrentLevel");
-        PlayerPrefs.SetInt("CurrentLevel", currentLevel + 1);
-        startLevel(PlayerPrefs.GetInt("CurrentLevel"));
-    }
-
-    public void finishLevel()
+    public void FinishLevel()
     {
         if (PlayerPrefs.GetInt("CurrentLevel") == PlayerPrefs.GetInt("CurrentMaxLevel"))
             PlayerPrefs.SetInt("CurrentMaxLevel", PlayerPrefs.GetInt("CurrentMaxLevel") + 1);
+
+        PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel") + 1);
     }
 }

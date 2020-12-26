@@ -9,6 +9,7 @@ public class CharacterController : MonoBehaviour
     public CharacterType characterType;
     public int characterID;
     [SerializeField] private float movementSpeed;
+    public bool canMove;
     [SerializeField] private List<InputManager.KeyBinding> keyBindings;
 
     private void Update()

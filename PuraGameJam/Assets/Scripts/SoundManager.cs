@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip collectClip;
     public AudioClip menuMusic;
 
+    private bool musicCreated = false;
+    private GameObject musicObject;
     public static SoundManager Instance { get; private set; }
 
     private void Awake()
@@ -25,6 +27,8 @@ public class SoundManager : MonoBehaviour
         if (!PlayerPrefs.HasKey("Sound"))
             PlayerPrefs.SetInt("Sound", 1);
 
+        CreateMusicObject(menuMusic);
+        StartCoroutine(PlayMusicWithLoop(3f));
     }
 
     public void PlaySound(AudioClip audioClip)
@@ -39,19 +43,38 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlayMusic(AudioClip audioClip)
+    public System.Collections.IEnumerator PlayMusicWithLoop(float waitTime)
     {
         if (PlayerPrefs.GetInt("Music") == 1)
         {
-            GameObject soundGameObject = new GameObject(audioClip.name);
-            DontDestroyOnLoad(soundGameObject);
-            soundGameObject.tag = "MenuMusic";
-            AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+            yield return new WaitForSeconds(waitTime);
+            if (musicCreated)
+            {
+                musicObject.GetComponent<AudioSource>().UnPause();
+            }
+            else
+            {
+                CreateMusicObject(menuMusic);
+                PlayMusicWithLoop(0f);
+            }
+        }
+    }
+
+    public void CreateMusicObject(AudioClip audioClip)
+    {
+        if (!musicCreated)
+        {
+            musicObject = new GameObject(audioClip.name);
+            DontDestroyOnLoad(musicObject);
+            musicObject.tag = "MenuMusic";
+            AudioSource audioSource = musicObject.AddComponent<AudioSource>();
 
             audioSource.loop = true;
+            audioSource.volume = 0.5f;
             audioSource.clip = audioClip;
-            audioSource.volume = 0.3f;
+            musicCreated = true;
             audioSource.Play();
+            audioSource.Pause();
         }
     }
 
