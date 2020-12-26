@@ -47,8 +47,8 @@ public class LevelManager : MonoBehaviour
 
         if (index >= 0 && index <= PlayerPrefs.GetInt("CurrentMaxLevel"))
         {
-            Debug.Log(index);
-            PlayerPrefs.SetInt("CurrentLevel", index);
+            Instantiate(levels[index]);
+            PlayerPrefs.SetInt("CurrentLevel", index + 1);
         }
         else if (index == PlayerPrefs.GetInt("CurrentMaxLevel"))
         {
@@ -64,11 +64,6 @@ public class LevelManager : MonoBehaviour
         LevelControl();
         DG.Tweening.DOTween.KillAll();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void LoadNextLevel()
-    {
-        StartLevel(PlayerPrefs.GetInt("CurrentLevel"));
     }
 
     public void FinishLevel()
