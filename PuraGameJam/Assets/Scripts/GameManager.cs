@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
@@ -9,7 +8,6 @@ public class GameManager : MonoBehaviour
 {
     public bool isGameOver, isGameStarted, levelFinished, birdFinished, fishFinished;
     public int birdCollectedCount = 0, fishCollectedCount = 0;
-    public List<GameObject> levels;
 
     public static GameManager Instance;
 
@@ -21,7 +19,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         Application.targetFrameRate = 60;
-        Instantiate(levels[PlayerPrefs.GetInt("CurrentLevel") - 1]);
     }
 
     public IEnumerator StartGame()
@@ -90,6 +87,25 @@ public class GameManager : MonoBehaviour
         DOTween.KillAll();
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
+    }
+
+    public void CollectObject(Collectable.CollectableType collectableType)
+    {
+        SoundManager.Instance.PlaySound(SoundManager.Instance.collectClip);
+
+        switch (collectableType)
+        {
+            case Collectable.CollectableType.BirdCollectable:
+                birdCollectedCount++;
+                MenuController.Instance.birdCollectedCountText.text = birdCollectedCount.ToString();
+                break;
+            case Collectable.CollectableType.FishCollectable:
+                fishCollectedCount++;
+                MenuController.Instance.fishCollectedCountText.text = fishCollectedCount.ToString();
+                break;
+            default: Debug.LogError("Collectable type isn't defined.");
+                break;
+        }
     }
 
     public IEnumerator DoAfterSeconds(float time, Action func)

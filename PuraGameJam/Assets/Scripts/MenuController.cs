@@ -9,10 +9,10 @@ public class MenuController : MonoBehaviour
 {
     public GameObject menuPanel, gameplayPanel, gameOverPanel, helpPanel, teamPanel, settingsPanel, gamePausedPanel, victoryPanel, levelStarPanel, levelPanel;
     public RectTransform logo, buttonsPanel, levelSlidePanel;
-    public Button previousLevelButton, nextLevelButton, victoryNextLevelButton, playButton;
+    public Button previousLevelButton, nextLevelButton, victoryNextLevelButton, startLevelButton, playButton;
     public Image soundImage, musicImage, levelImage;
     public Sprite toggleOn, toggleOff, grayButtonLongImage, greenButtonLongImage, lockIcon;
-    public Text levelNoText, levelNameText;
+    public Text levelNoText, levelNameText, birdCollectedCountText, fishCollectedCountText;
 
     private int currentlyDisplayedLevel = -1;
     public static MenuController Instance;
@@ -27,6 +27,7 @@ public class MenuController : MonoBehaviour
         PlayMenuAnimations();
         StartCoroutine(OpenMenu());
 
+        playButton.onClick.RemoveAllListeners();
         playButton.onClick.AddListener(() => DisplayLevel(PlayerPrefs.GetInt("CurrentLevel") - 1));
     }
 
@@ -83,8 +84,8 @@ public class MenuController : MonoBehaviour
     {
         levelStarPanel.SetActive(false);
         levelImage.sprite = lockIcon;
-        playButton.interactable = false;
-        playButton.GetComponent<Image>().sprite = grayButtonLongImage;
+        startLevelButton.interactable = false;
+        startLevelButton.GetComponent<Image>().sprite = grayButtonLongImage;
 
         levelImage.color = new Color(0.5f, 0.5f, 0.5f);
     }
@@ -105,10 +106,11 @@ public class MenuController : MonoBehaviour
         levelImage.sprite = LevelManager.Instance.levels[index].levelImage;
         levelImage.color = Color.white;
 
-        playButton.interactable = true;
-        playButton.GetComponent<Image>().sprite = greenButtonLongImage;
-        playButton.onClick.RemoveAllListeners();
-        playButton.onClick.AddListener(() => LevelManager.Instance.StartLevel(index + 1));
+        startLevelButton.interactable = true;
+        startLevelButton.GetComponent<Image>().sprite = greenButtonLongImage;
+        startLevelButton.onClick.RemoveAllListeners();
+        startLevelButton.onClick.AddListener(() => LevelManager.Instance.StartLevel(index));
+        startLevelButton.onClick.AddListener(() => StartGame());
     }
 
     public void AdjustLevelButtons(int index)
