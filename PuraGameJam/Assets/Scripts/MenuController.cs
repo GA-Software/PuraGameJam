@@ -7,7 +7,7 @@ using System;
 
 public class MenuController : MonoBehaviour
 {
-    public GameObject menuPanel, gameplayPanel, gameOverPanel, helpPanel, teamPanel, settingsPanel;
+    public GameObject menuPanel, gameplayPanel, gameOverPanel, helpPanel, teamPanel, settingsPanel, gamePausedPanel;
     public RectTransform logo, buttonsPanel;
     public Image soundImage, musicImage;
     public Sprite toggleOn, toggleOff;
@@ -35,9 +35,10 @@ public class MenuController : MonoBehaviour
 
     public void StartGame()
     {
-        menuPanel.SetActive(false);
         gameplayPanel.SetActive(true);
-        GameManager.Instance.StartGame();
+        menuPanel.GetComponent<CanvasGroup>().DOFade(0f, 0.8f).SetEase(Ease.Linear);
+        StartCoroutine(GameManager.Instance.StartGame());
+        StartCoroutine(GameManager.Instance.DoAfterSeconds(0.8f, () => menuPanel.SetActive(false)));
     }
 
     public void OpenPanel(GameObject panel)
@@ -61,6 +62,9 @@ public class MenuController : MonoBehaviour
 
         gameOverPanel.SetActive(false);
         gameOverPanel.transform.GetChild(0).localScale = Vector3.zero;
+
+        gamePausedPanel.SetActive(false);
+        gamePausedPanel.transform.GetChild(0).localScale = Vector3.zero;
 
         helpPanel.SetActive(false);
         helpPanel.transform.GetChild(0).localScale = Vector3.zero;
