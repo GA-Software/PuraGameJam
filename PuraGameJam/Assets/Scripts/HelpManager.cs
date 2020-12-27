@@ -6,6 +6,7 @@ public class HelpManager : MonoBehaviour
     [System.Serializable]
     public class HelpItem
     {
+        [TextArea(3, 10)]
         public string helpDescription;
         public Sprite helpImage;
     }

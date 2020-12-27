@@ -50,29 +50,38 @@ public class GameManager : MonoBehaviour
     {
         if (birdFinished && fishFinished)
         {
+            SetStars();
             LevelManager.Instance.FinishLevel();
             levelFinished = true;
-
-            int starCount = 0;
-
-            int birdRequired = LevelManager.Instance.levels[PlayerPrefs.GetInt("CurrentLevel")].birdCollectableCount;
-            int fishRequired = LevelManager.Instance.levels[PlayerPrefs.GetInt("CurrentLevel")].fishCollectableCount;
-
-            float percent = (float)(birdCollectedCount + fishCollectedCount) / (float)(birdRequired + fishRequired);
-
-            if (percent < 0.6f)
-                starCount = 1;
-            else if (percent < 0.85f)
-                starCount = 2;
-            else
-                starCount = 3;
 
             foreach (CharacterController character in InputManager.Instance.characterControllers)
             {
                 character.canMove = false;
             }
+
+            MenuController.Instance.DisplayJournal(PlayerPrefs.GetInt("CurrentLevel") - 1);
+            MenuController.Instance.OpenPanel(MenuController.Instance.victoryPanel);
+        }
+    }
+
+    private void SetStars()
+    {
+        int birdRequired = LevelManager.Instance.levels[PlayerPrefs.GetInt("CurrentLevel") - 1].birdCollectableCount;
+        int fishRequired = LevelManager.Instance.levels[PlayerPrefs.GetInt("CurrentLevel") - 1].fishCollectableCount;
+        float percent = (birdCollectedCount + fishCollectedCount) / (float)(birdRequired + fishRequired);
+
+        int starCount;
+        if (percent < 0.6f)
+            starCount = 1;
+        else if (percent < 0.85f)
+            starCount = 2;
+        else
+            starCount = 3;
+
+        int difference = starCount - PlayerPrefs.GetInt("LevelStar" + PlayerPrefs.GetInt("CurrentLevel"));
+        if (difference > 0) //if new star count is greater than the older one
+        {
             PlayerPrefs.SetInt("LevelStar" + PlayerPrefs.GetInt("CurrentLevel"), starCount);
-            MenuController.Instance.OpenPanel(MenuController.Instance.victoryPanel); 
         }
     }
 
@@ -82,8 +91,11 @@ public class GameManager : MonoBehaviour
         {
             isGameOver = true;
 
-            
-            MenuController.Instance.gameplayPanel.SetActive(false);
+            foreach (CharacterController character in InputManager.Instance.characterControllers)
+            {
+                character.canMove = false;
+            }
+
             MenuController.Instance.OpenPanel(MenuController.Instance.gameOverPanel);
             SoundManager.Instance.PlaySound(SoundManager.Instance.gameOverClip);
         }

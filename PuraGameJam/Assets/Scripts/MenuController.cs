@@ -9,10 +9,10 @@ public class MenuController : MonoBehaviour
 {
     public GameObject menuPanel, gameplayPanel, gameOverPanel, helpPanel, teamPanel, settingsPanel, gamePausedPanel, victoryPanel, levelStarPanel, levelPanel;
     public RectTransform logo, buttonsPanel, levelSlidePanel, helpSlidePanel;
-    public Button previousLevelButton, nextLevelButton, previousHelpButton, nextHelpButton, victoryNextLevelButton, startLevelButton, playButton, helpButton;
+    public Button previousLevelButton, nextLevelButton, previousHelpButton, nextHelpButton, startLevelButton, playButton, helpButton;
     public Image soundImage, musicImage, inGameSoundImage, inGameMusicImage, levelImage, helpItemImage;
     public Sprite toggleOn, toggleOff, grayButtonLongImage, greenButtonLongImage, lockIcon;
-    public Text levelNoText, levelNameText, helpDescriptionText, birdCollectedCountText, fishCollectedCountText;
+    public Text levelNoText, levelNameText, helpDescriptionText, birdCollectedCountText, fishCollectedCountText, journalTitle, journalText;
 
     private int currentlyDisplayedLevel = -1, currentlyDisplayedHelpItem = -1;
     public static MenuController Instance;
@@ -24,19 +24,24 @@ public class MenuController : MonoBehaviour
         else if (Instance != this)
             Destroy(gameObject);
 
+
+        if (!PlayerPrefs.HasKey("İlkGiriş"))
+            PlayerPrefs.SetInt("İlkGiriş", 1);
+
         PlayMenuAnimations();
         StartCoroutine(OpenMenu());
 
         playButton.onClick.RemoveAllListeners();
         playButton.onClick.AddListener(() => DisplayLevel(PlayerPrefs.GetInt("CurrentLevel") - 1));
 
-        playButton.onClick.RemoveAllListeners();
+        helpButton.onClick.RemoveAllListeners();
         helpButton.onClick.AddListener(() => DisplayHelpItem(0));
     }
 
     private void Start()
     {
         updateSoundImages();
+        //to be implemented (ilk giriş)
     }
 
     public void StartGame()
@@ -215,6 +220,13 @@ public class MenuController : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         panel.SetActive(false);
     }
+
+    public void DisplayJournal(int index)
+    {
+        journalTitle.text = "GÜNLÜK #" + index + '\n' + LevelManager.Instance.levels[index].levelName;
+        journalText.text = LevelManager.Instance.levels[index].levelJournal;
+    }
+
     IEnumerator OpenMenu()
     {
         gameplayPanel.SetActive(false);

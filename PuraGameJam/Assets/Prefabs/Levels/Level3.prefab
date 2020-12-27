@@ -341,6 +341,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelName: "\u0130LK TEMAS"
+  levelJournal: "Bug\xFCn ilk kez bir insanla kar\u015F\u0131la\u015Ft\u0131k, insanlar\u0131n
+    yok olmad\u0131\u011F\u0131na emin olduk. Onlar\u0131n hala ya\u015Fad\u0131\u011F\u0131n\u0131
+    biliyordum. Ama bu ya\u015Fay\u0131\u015F asla onlar\u0131n do\u011Fas\u0131n\u0131
+    de\u011Fi\u015Ftirmiyor. O insan bug\xFCn yolda\u015F\u0131m Passer\u2019i \xF6ld\xFCrmeye
+    \xE7al\u0131\u015Ft\u0131. E\u011Fer ben olmasayd\u0131m benim i\xE7in \xF6l\xFCm\xFC
+    g\xF6z\xFCne alan dostum bug\xFCn insanlar taraf\u0131ndan \xF6lecekti.\r\n\u0130nsanlara
+    kar\u015F\u0131 birlik olmam\u0131z gerekiyor, yoksa hepimiz yok olaca\u011F\u0131z..."
   levelImage: {fileID: 21300000, guid: 6d87ea9767607574abdd1f7c2d0e08db, type: 3}
   birdCollectableCount: 3
   fishCollectableCount: 3

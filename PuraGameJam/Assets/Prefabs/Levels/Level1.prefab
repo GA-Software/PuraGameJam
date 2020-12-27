@@ -173,6 +173,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelName: "PASSER \u0130LE \u0130LK G\xDCN\xDCM\xDCZ"
+  levelJournal: "\u0130nsanlar\u0131n ard\u0131nda b\u0131rakt\u0131klar\u0131 \xE7\xF6plerle
+    kar\u015F\u0131la\u015Ft\u0131k. Benim i\xE7in kurulmu\u015F tuzaklar var burada,
+    bu durum bizi korkutmuyor, sadece insanlar\u0131n neden bunu yapt\u0131\u011F\u0131n\u0131
+    anlamaya \xE7al\u0131\u015F\u0131yoruz. Do\u011Frudan devam edersek bir insanla
+    kar\u015F\u0131la\u015Faca\u011F\u0131m\u0131z konusunda \xFCmitliyiz. "
   levelImage: {fileID: 21300000, guid: 3e994bb313a107941b8037aed3808a03, type: 3}
   birdCollectableCount: 10
   fishCollectableCount: 10

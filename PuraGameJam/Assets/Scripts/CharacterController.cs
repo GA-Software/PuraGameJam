@@ -13,16 +13,19 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private int facingDirection = 1;
     [SerializeField] private List<InputManager.KeyBinding> keyBindings;
 
+    private void Awake()
+    {
+        canMove = true;
+    }
     private void Update()
     {
-        if (GameManager.Instance.isGameStarted && !GameManager.Instance.isGameOver)
+        if (GameManager.Instance.isGameStarted && !GameManager.Instance.isGameOver && canMove)
         {
             if (Input.GetKey(InputManager.Instance.GetKey(characterID, InputManager.ControlKeys.Left)))
             {
                 transform.Translate(Vector2.left * movementSpeed * facingDirection *  Time.deltaTime);
                 if (facingDirection == 1)
                     Flip();
-
             }
 
             if (Input.GetKey(InputManager.Instance.GetKey(characterID, InputManager.ControlKeys.Right)))
@@ -30,7 +33,6 @@ public class CharacterController : MonoBehaviour
                 transform.Translate(Vector2.right * movementSpeed * facingDirection * Time.deltaTime);
                 if (facingDirection == -1)
                     Flip();
-
             }
 
             if (Input.GetKey(InputManager.Instance.GetKey(characterID, InputManager.ControlKeys.Up)))

@@ -171,6 +171,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelName: "K\u0130MSEY\u0130 \u0130STEM\u0130YORLAR"
+  levelJournal: "\u0130lerledik\xE7e bizim i\xE7in konulan tuzaklardan fazlas\u0131
+    ile kar\u015F\u0131la\u015Ft\u0131k. Bu sefer Passer i\xE7in haz\u0131rlanm\u0131\u015F,
+    onun hareket etmesini engelleyen, tuza\u011Fa d\xFC\u015F\xFCrmek i\xE7in haz\u0131rlanm\u0131\u015F
+    \u015Feylerle kar\u015F\u0131la\u015Ft\u0131k. \u0130nsanlar\u0131n sadece bize
+    kar\u015F\u0131 de\u011Fil t\xFCm canl\u0131lara kar\u015F\u0131 bir nefreti
+    oldu\u011Funu d\xFC\u015F\xFCn\xFCyorum. Neyse ki bug\xFCn de beraberce bu tuzaklar\u0131n
+    \xFCstesinden geldik."
   levelImage: {fileID: 21300000, guid: ca5a494b0695b754ab0edb4ab7edee8e, type: 3}
   birdCollectableCount: 3
   fishCollectableCount: 3
