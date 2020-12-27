@@ -44,6 +44,11 @@ public class Interactable : MonoBehaviour
                 }
                 break;
             case InteractionType.Boat:
+                if (!obstacleDestroyed && (collision.gameObject.tag == "FishCharacter" && connectedObstacle.characterType == CharacterController.CharacterType.BirdCharacter))
+                {
+                    Destroy(connectedObstacle.transform.gameObject);
+                    obstacleDestroyed = true;
+                }
                 break;
             default:
                 break;

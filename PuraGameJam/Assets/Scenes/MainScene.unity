@@ -6798,9 +6798,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   helpItems:
-  - helpDescription: "Dostum Passer\u2019in hareketini sa\u011Flamak ve etkile\u015Fimini
-      kullanmak i\xE7in soldaki tu\u015Flar\u0131 kullanman gerekir. Benim hareket
-      ve etkile\u015Fim tu\u015Flar\u0131m ise sa\u011Fdakiler."
+  - helpDescription: "Dostum Passer\u2019in hareketini sa\u011Flamak i\xE7in soldaki
+      tu\u015Flar\u0131 kullanman gerekir. Benim hareket tu\u015Flar\u0131m ise sa\u011Fdakiler."
     helpImage: {fileID: 21300000, guid: e638b08d8d10f434b94f4f33788f9b47, type: 3}
   - helpDescription: "Yolculu\u011Fumuza mola vermek i\xE7in her b\xF6l\xFCm\xFCn
       sonunda Passer ile buldu\u011Fumuz yuvalarda konaklamam\u0131z gerekiyor."

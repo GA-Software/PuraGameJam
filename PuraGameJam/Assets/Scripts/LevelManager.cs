@@ -71,6 +71,9 @@ public class LevelManager : MonoBehaviour
         if (PlayerPrefs.GetInt("CurrentLevel") == PlayerPrefs.GetInt("CurrentMaxLevel"))
             PlayerPrefs.SetInt("CurrentMaxLevel", PlayerPrefs.GetInt("CurrentMaxLevel") + 1);
 
-        PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel") + 1);
+        if (PlayerPrefs.GetInt("CurrentLevel") < PlayerPrefs.GetInt("CurrentMaxLevel"))
+        {
+            PlayerPrefs.SetInt("CurrentLevel", PlayerPrefs.GetInt("CurrentLevel") + 1);
+        }
     }
 }

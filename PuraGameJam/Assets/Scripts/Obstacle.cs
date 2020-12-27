@@ -27,6 +27,8 @@ public class Obstacle : MonoBehaviour
                 canKill = false;
                 break;
             case ObstacleType.Hunter:
+                transform.GetChild(0).DOMoveX(transform.position.x - 50, 1f).SetEase(Ease.Linear).SetLoops(-1);
+                HunterShoot();
                 break;
             case ObstacleType.Piranha:
                 transform.DOMoveX(transform.position.x - 50, 6f).SetEase(Ease.Linear);
@@ -56,6 +58,18 @@ public class Obstacle : MonoBehaviour
         if (canKill && collision.gameObject.tag == characterType.ToString())
         {
             GameManager.Instance.GameOver();
+        }
+    }
+
+    IEnumerator HunterShoot()
+    {
+        if (canKill)
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                yield return new WaitForSeconds(1.0f);
+                GameManager.Instance.DoAfterSeconds(1f, () => transform.GetChild(0).position = new Vector3(1.5f, 0.65f, 0f));
+            }
         }
     }
 }
