@@ -7,10 +7,11 @@ public class SoundManager : MonoBehaviour
     public AudioClip gameOverClip;
     public AudioClip collectClip;
     public AudioClip menuMusic;
+    public AudioClip gameplayMusic;
     public AudioClip victoryClip;
 
-    private bool musicCreated = false;
-    private GameObject musicObject;
+    public bool musicCreated = false;
+    public GameObject musicObject;
     public static SoundManager Instance { get; private set; }
 
     private void Awake()
@@ -29,7 +30,7 @@ public class SoundManager : MonoBehaviour
             PlayerPrefs.SetInt("Sound", 1);
 
         CreateMusicObject(menuMusic);
-        StartCoroutine(PlayMusicWithLoop(3f));
+        StartCoroutine(PlayMusicWithLoop(1f, menuMusic));
     }
 
     public void PlaySound(AudioClip audioClip)
@@ -44,7 +45,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public System.Collections.IEnumerator PlayMusicWithLoop(float waitTime)
+    public System.Collections.IEnumerator PlayMusicWithLoop(float waitTime, AudioClip clip)
     {
         if (PlayerPrefs.GetInt("Music") == 1)
         {
@@ -56,8 +57,8 @@ public class SoundManager : MonoBehaviour
             }
             else
             {
-                CreateMusicObject(menuMusic);
-                PlayMusicWithLoop(0f);
+                CreateMusicObject(clip);
+                PlayMusicWithLoop(0f, clip);
             }
         }
     }

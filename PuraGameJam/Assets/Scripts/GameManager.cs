@@ -23,7 +23,18 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGame()
     {
+        foreach (CharacterController character in InputManager.Instance.characterControllers)
+        {
+            character.transform.position = new Vector3(LevelManager.Instance.levels[PlayerPrefs.GetInt("CurrentLevel") - 1].spawnPoint.position.x,
+                character.transform.position.y,
+                character.transform.position.z);
+        }
         yield return new WaitForSeconds(0.8f);
+        Destroy(SoundManager.Instance.musicObject);
+        SoundManager.Instance.musicCreated = false;
+        SoundManager.Instance.CreateMusicObject(SoundManager.Instance.gameplayMusic);
+        SoundManager.Instance.PlayMusicWithLoop(0.5f, SoundManager.Instance.gameplayMusic);
+        SoundManager.Instance.musicObject.GetComponent<AudioSource>().UnPause();
         isGameOver = false;
         isGameStarted = true;
     }

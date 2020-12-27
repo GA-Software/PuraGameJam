@@ -7,7 +7,7 @@ using System;
 
 public class MenuController : MonoBehaviour
 {
-    public GameObject menuPanel, gameplayPanel, gameOverPanel, helpPanel, teamPanel, settingsPanel, gamePausedPanel, victoryPanel, levelStarPanel, levelPanel;
+    public GameObject menuPanel, gameplayPanel, gameOverPanel, helpPanel, teamPanel, settingsPanel, gamePausedPanel, victoryPanel, levelStarPanel, levelPanel, firstTimeJournalPanel;
     public RectTransform logo, buttonsPanel, levelSlidePanel, helpSlidePanel;
     public Button previousLevelButton, nextLevelButton, previousHelpButton, nextHelpButton, startLevelButton, playButton, helpButton;
     public Image soundImage, musicImage, inGameSoundImage, inGameMusicImage, levelImage, helpItemImage;
@@ -23,7 +23,6 @@ public class MenuController : MonoBehaviour
             Instance = this;
         else if (Instance != this)
             Destroy(gameObject);
-
 
         if (!PlayerPrefs.HasKey("İlkGiriş"))
             PlayerPrefs.SetInt("İlkGiriş", 1);
@@ -41,7 +40,12 @@ public class MenuController : MonoBehaviour
     private void Start()
     {
         updateSoundImages();
-        //to be implemented (ilk giriş)
+
+        if (PlayerPrefs.GetInt("İlkGiriş") == 1)
+        {
+            OpenPanel(firstTimeJournalPanel);
+            PlayerPrefs.SetInt("İlkGiriş", 0);
+        }
     }
 
     public void StartGame()
@@ -252,14 +256,18 @@ public class MenuController : MonoBehaviour
 
         teamPanel.SetActive(false);
         teamPanel.transform.GetChild(0).localScale = Vector3.zero;
+
+        firstTimeJournalPanel.SetActive(false);
+        firstTimeJournalPanel.transform.GetChild(0).localScale = Vector3.zero;
+
         yield return new WaitForSeconds(0.1f);
     }
 
     private void PlayMenuAnimations()
     {
-        logo.DOPunchScale(new Vector3(0.04f, 0.04f, 0.04f), 1f, 1, 1f).SetEase(Ease.Linear).SetLoops(-1);
+        logo.GetChild(0).DOPunchScale(new Vector3(0.04f, 0.04f, 0.04f), 1f, 1, 1f).SetEase(Ease.Linear).SetLoops(-1);
         logo.DOAnchorPosX(0f, 0.4f).SetEase(Ease.OutBack);
-        buttonsPanel.DOAnchorPosY(160f, 0.4f).SetEase(Ease.OutBack);
+        buttonsPanel.DOAnchorPosY(120f, 0.4f).SetEase(Ease.OutBack);
     }
 
     public void buttonUp(Button button)
