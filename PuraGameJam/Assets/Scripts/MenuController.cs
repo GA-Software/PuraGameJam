@@ -10,7 +10,7 @@ public class MenuController : MonoBehaviour
     public GameObject menuPanel, gameplayPanel, gameOverPanel, helpPanel, teamPanel, settingsPanel, gamePausedPanel, victoryPanel, levelStarPanel, levelPanel;
     public RectTransform logo, buttonsPanel, levelSlidePanel;
     public Button previousLevelButton, nextLevelButton, victoryNextLevelButton, startLevelButton, playButton;
-    public Image soundImage, musicImage, levelImage;
+    public Image soundImage, musicImage, inGameSoundImage, inGameMusicImage, levelImage;
     public Sprite toggleOn, toggleOff, grayButtonLongImage, greenButtonLongImage, lockIcon;
     public Text levelNoText, levelNameText, birdCollectedCountText, fishCollectedCountText;
 
@@ -97,8 +97,7 @@ public class MenuController : MonoBehaviour
         foreach (Transform starTransform in levelStarPanel.transform)
         {
             Image star = starTransform.GetComponent<Image>();
-
-            if (star.transform.GetSiblingIndex() < PlayerPrefs.GetInt("LevelStar" + index + 1))
+            if (star.transform.GetSiblingIndex() < PlayerPrefs.GetInt("LevelStar" + (index + 1)))
                 star.color = new Color(1f, 0.8f, 0f);
             else
                 star.color = Color.white;
@@ -195,14 +194,20 @@ public class MenuController : MonoBehaviour
 
     public void buttonUp(Button button)
     {
-        button.transform.DOScale(1f, 0.1f);
+        if (Time.timeScale > 0)
+            button.transform.DOScale(1f, 0.1f);
+        else
+            button.transform.localScale = Vector3.one;
     }
 
     public void buttonDown(Button button)
     {
         if (button.interactable)
         {
-            button.transform.DOScale(0.9f, 0.1f);
+            if (Time.timeScale > 0)
+                button.transform.DOScale(0.9f, 0.1f);
+            else
+                button.transform.localScale = Vector3.one * 0.9f;
             SoundManager.Instance.PlaySound(SoundManager.Instance.buttonClip);
         }
     }
@@ -227,14 +232,26 @@ public class MenuController : MonoBehaviour
     public void updateSoundImages()
     {
         if (PlayerPrefs.GetInt("Sound") == 1)
+        {
             soundImage.sprite = toggleOn;
+            inGameSoundImage.sprite = toggleOn;
+        }
         else
+        {
             soundImage.sprite = toggleOff;
+            inGameSoundImage.sprite = toggleOff;
+        }
 
         if (PlayerPrefs.GetInt("Music") == 1)
+        {
             musicImage.sprite = toggleOn;
+            inGameMusicImage.sprite = toggleOn;
+        }
         else
+        {
             musicImage.sprite = toggleOff;
+            inGameMusicImage.sprite = toggleOff;
+        }
     }
 
     public void QuitGame()

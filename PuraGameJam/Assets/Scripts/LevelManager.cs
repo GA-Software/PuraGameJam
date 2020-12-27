@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public int levelCount = 10;
+    public int levelCount = 3;
     public Level[] levels;
 
     public static LevelManager Instance { get; private set; }

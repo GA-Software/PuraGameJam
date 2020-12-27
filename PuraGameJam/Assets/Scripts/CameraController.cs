@@ -4,27 +4,27 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     private List<Transform> characters = new List<Transform>();
-    [SerializeField]private Vector3 targetPos;
+    public Transform midPointTransform;
 
     private void Start()
     {
         for (int i = 0; i < InputManager.Instance.characterControllers.Count; i++)
         {
-            characters.Add(InputManager.Instance.characterControllers[i].transform);
+            characters.Add(InputManager.Instance.characterControllers[i].transform.GetChild(0));
         }
 
-        FollowCharacters();
+        CalculateMidpoint();
     }
 
     private void Update()
     {
         if (GameManager.Instance.isGameStarted && !GameManager.Instance.isGameOver)
         {
-            FollowCharacters();
+            CalculateMidpoint();
         }
     }
 
-    public void FollowCharacters()
+    public void CalculateMidpoint()
     {
         Vector3 medianPoint = Vector3.zero;
 
@@ -34,7 +34,6 @@ public class CameraController : MonoBehaviour
         }
         medianPoint /= characters.Count;
 
-        targetPos = new Vector3(medianPoint.x, 0, -10);
-        transform.position = targetPos;
+        midPointTransform.position = new Vector3(medianPoint.x, 0, -10);
     }
 }
